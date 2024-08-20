@@ -2,8 +2,8 @@ CC = g++
 #HELPERSPATH = ../gr_helpers/
 INCLPATH = ./ 
 # $(HELPERSPATH)
-CFLAGS = -std=c++2a $(foreach H, $(INCLPATH), -I$(H))
-MAIN = train.cpp
+CFLAGS = -std=c++2a -ftemplate-depth=3500 $(foreach H, $(INCLPATH), -I$(H))
+MAIN = main.cpp
 EXEC = ./a.out
 #HELPERS = $(HELPERSPATH)*.cpp
 
