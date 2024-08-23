@@ -18,9 +18,5 @@ void f (T&& ob) {
 }
 
 int main () {
-    int a = 5;
-    g(a);
-    g(5);
-    // f(a);
-    // f(5);
+    
 }
