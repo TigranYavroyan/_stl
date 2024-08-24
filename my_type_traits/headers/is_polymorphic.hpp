@@ -12,6 +12,7 @@ struct is_polymorphic : false_type {};
 template <polymorphic T>
 struct is_polymorphic<T> : true_type {};
 
+
 template <typename T>
 static constexpr bool is_polymorphic_v = is_polymorphic<T>::value;
 

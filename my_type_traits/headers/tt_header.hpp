@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include <type_traits>
+#include <concepts>
 
 namespace chlp {
     #include "integral_const.hpp"

@@ -22,23 +22,18 @@ public:
 
 int main () {
     B ob(0);
-    std::cout << std::boolalpha;
-    std::cout << is_integral_v<A> << '\n';
-    std::cout << is_integral_v<float> << '\n';
+    std::cout << std::boolalpha << is_integral_v<A> << std::endl;
+    std::cout << std::boolalpha << is_integral_v<float> << std::endl;
     // const volatile int a = 10;
     // chlp::add_const_t<decltype(a)> c = 20;
     // decltype(a) b = 15;
     // chlp::remove_cv_t<decltype(a)> b = 15;
     // b = 20;
     // c = 30;
-    // std::cout << is_integral_v<int> << '\n';
-    // std::cout << is_rvalue_ref_v<int&> << '\n';
-    // std::cout << is_array_v<int> << '\n';
-    // std::cout << typeid(conditional_t<false, int, double>).name() << '\n';
-    std::cout << is_polymorphic_v<B> << '\n';
-    std::cout << is_polymorphic_v<A> << '\n';
-    std::cout << is_polymorphic_v<int> << '\n';
-    std::cout << std::is_polymorphic<B>::value << '\n';
-    std::cout << is_class_v<int> << '\n';
-    // std::cout << dynamic_cast<void*>(&ob) << '\n';
+    // std::cout << std::boolalpha << is_integral_v<int> << std::endl;
+    // std::cout << std::boolalpha << is_rvalue_ref_v<int&> << std::endl;
+    // std::cout << std::boolalpha << is_array_v<int> << std::endl;
+    // std::cout << typeid(conditional_t<false, int, double>).name() << std::endl;
+    std::cout << std::boolalpha << is_polymorphic_v<B> << std::endl;
+    // std::cout << dynamic_cast<void*>(&ob) << std::endl;
 }
