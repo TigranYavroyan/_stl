@@ -18,6 +18,7 @@ namespace chlp {
     #include "conditional.hpp"
     #include "enable_if.hpp"
     #include "is_polymorphic.hpp"
+    #include "is_class.hpp"
 }
 
 #endif // TT_HEADER_HPP
