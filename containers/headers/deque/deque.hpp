@@ -26,15 +26,16 @@ private:
 	size_type right_size;
 	Alloc allocator;
 
-	class base_iterator {
+	class base_iterator { // can add pointer to this
 			friend my_deque<value_type, Alloc>;
 		public:
 			bool operator== (const base_iterator& other) const;
 			bool operator!= (const base_iterator& other) const;
 		protected:
-			explicit base_iterator (const_pointer _ptr); // why explicit ?
+			explicit base_iterator (const_pointer _ptr, const my_deque<value_type, Alloc>* const cont); // why explicit ?
 		protected:
 			pointer ptr;
+			my_deque<value_type, Alloc>* container;
 	};
 
 	class const_iterator : base_iterator {
@@ -53,7 +54,7 @@ private:
 			const const_iterator& operator-- ();
 			const const_iterator operator-- (value_type);
 		protected:
-			explicit const_iterator(const_pointer _ptr);
+			explicit const_iterator(const_pointer _ptr, const my_deque<value_type, Alloc>* const cont);
 	};
 
 	class iterator : const_iterator {
@@ -68,7 +69,7 @@ private:
 			reference operator* ();
 			pointer operator-> ();
 		protected:
-			explicit iterator (const_pointer _ptr);
+			explicit iterator (const_pointer _ptr, const my_deque<value_type, Alloc>* const cont);
 	};
 };
 
