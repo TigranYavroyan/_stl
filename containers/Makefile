@@ -1,14 +1,11 @@
 CC = g++
-#HELPERSPATH = ../gr_helpers/
-INCLPATH = ./headers 
-# $(HELPERSPATH)
-CFLAGS = -std=c++2a $(foreach H, $(INCLPATH), -I$(H)) -g
+INCLPATH = ./headers
+CFLAGS = -std=c++2a $(foreach H, $(INCLPATH), -I$(H))
 MAIN = main.cpp
-EXEC = ./a.out
-#HELPERS = $(HELPERSPATH)*.cpp
+EXEC = a.out
 
 all: $(EXEC)
-#$(HELPERS)
+
 $(EXEC) : $(MAIN)
 	$(CC) $(CFLAGS) -o $@ $^
 

@@ -6,5 +6,6 @@
 #include <array>
 #include <memory>
 #include "my_allocator.hpp"
+#include "deque/deque.hpp"
 
 #endif // HEADER_H

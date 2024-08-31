@@ -25,7 +25,7 @@ int main () {
     // print_vec(vec);
     // vec.emplace_back(10, 100);
     // print_vec(vec);
-
+	my_deque<int> deq(10, 0);
     vector<int, Stack_alloc<int>> vec = {1, 2, 3, 4, 5, 6, 7, 8};
     print_vec(vec);
     vec.push_back(1000);
@@ -34,4 +34,8 @@ int main () {
     vec.pop_back();
     vec.pop_back();
     print_vec(vec);
+}
+
+void __attribute__((destructor)) __exit__ () {
+	system("leaks a.out");
 }

@@ -1,0 +1,6 @@
+#ifndef INSERTION_HPP
+#define INSERTION_HPP
+
+
+
+#endif // INSERTION_HPP
