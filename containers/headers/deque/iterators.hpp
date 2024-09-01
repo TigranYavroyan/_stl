@@ -4,19 +4,18 @@
 // ------------------------------------------ helpers ----------------------------------------------------------------
 
 template <typename T, typename Alloc>
-bool my_deque<T, Alloc>::base_iterator::_out_of_range (pointer ptr) const {
-	return (ptr < container->left || ptr > (container->left + left_size)) ||
-			(ptr < container->right || ptr > (container->right + right_size));
-}
-
-template <typename T, typename Alloc>
 bool my_deque<T, Alloc>::base_iterator::_in_left (pointer ptr) const {
-	return (ptr >= container->left && ptr < (container->left + container->left_size));
+	return (ptr > container->left && ptr < (container->left + container->left_size));
 }
 
 template <typename T, typename Alloc>
 bool my_deque<T, Alloc>::base_iterator::_in_right (pointer ptr) const {
-	return (ptr >= container->right && ptr < (container->right + container->right_size));
+	return (ptr > container->right && ptr < (container->right + container->right_size));
+}
+
+template <typename T, typename Alloc>
+bool my_deque<T, Alloc>::base_iterator::_out_of_range (pointer ptr) const {
+	return !this->_in_left(this->ptr) && !this->_in_right(this->ptr);
 }
 
 //-------------------------------------- base_iterator ----------------------------------------------------------------------
@@ -80,12 +79,10 @@ template <typename T, typename Alloc>
 const my_deque<T, Alloc>::const_iterator& my_deque<T, Alloc>::const_iterator::operator++ () {
 	if (this->_in_left(this->ptr))
 		--(this->ptr);
-	else {
-		if ((this->ptr + 1) == this->container->left) {
-			this->ptr = this->container->right;
-		}
+	else if (this->ptr == this->container->left)
+		this->ptr = this->container->right;
+	else 
 		++(this->ptr);
-	}
 
 	return *this;
 }
@@ -99,10 +96,12 @@ const my_deque<T, Alloc>::const_iterator my_deque<T, Alloc>::const_iterator::ope
 
 template <typename T, typename Alloc>
 const my_deque<T, Alloc>::const_iterator& my_deque<T, Alloc>::const_iterator::operator-- () {
-	if (this->_in_left(this->ptr))
-		++(this->ptr);
-	else
+	if (this->_in_right(this->ptr))
 		--(this->ptr);
+	else if (this->ptr == this->container->right)
+		this->ptr = this->container->left;
+	else
+		++(this->ptr);
 
 	return *this;
 }

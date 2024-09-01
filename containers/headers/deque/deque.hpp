@@ -36,8 +36,8 @@ private:
 			bool _in_left (pointer ptr) const;
 			bool _in_right (pointer ptr) const;
 	};
-
-	class const_iterator : base_iterator {
+public:
+	class const_iterator : public base_iterator {
 			friend my_deque<value_type, Alloc>;
 		public:
 			const_iterator (const const_iterator& other);
@@ -56,7 +56,7 @@ private:
 			explicit const_iterator(pointer _ptr, cont_pointer cont);
 	};
 
-	class iterator : const_iterator {
+	class iterator : public const_iterator {
 			friend my_deque<value_type, Alloc>;
 		public:
 			iterator (const iterator& other);

@@ -25,19 +25,19 @@ int main () {
     // print_vec(vec);
     // vec.emplace_back(10, 100);
     // print_vec(vec);
-	my_deque<int> deq(10, 111);
-    // std::for_each(deq.begin(), deq.end(), [](const int val) {std::cout << val << ' ';});
-    // std::cout << '\n';
-    vector<int, Stack_alloc<int>> vec = {1, 2, 3, 4, 5, 6, 7, 8};
-    print_vec(vec);
-    vec.push_back(1000);
-    print_vec(vec);
-    vec.pop_back();
-    vec.pop_back();
-    vec.pop_back();
-    print_vec(vec);
+	my_deque<int> deq(11, 11);
+    std::for_each(deq.begin(), deq.end(), [](const int val) {std::cout << val << ' ';});
+    std::cout << '\n';
+    // vector<int, Stack_alloc<int>> vec = {1, 2, 3, 4, 5, 6, 7, 8};
+    // print_vec(vec);
+    // vec.push_back(1000);
+    // print_vec(vec);
+    // vec.pop_back();
+    // vec.pop_back();
+    // vec.pop_back();
+    // print_vec(vec);
 }
 
-void __attribute__((destructor)) __exit__ () {
-	system("leaks a.out");
-}
+// void __attribute__((destructor)) __exit__ () {
+// 	system("leaks a.out");
+// }
