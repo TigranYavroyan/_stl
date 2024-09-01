@@ -13,6 +13,12 @@ public:
 	using const_reference = const T&;
 	using pointer = T*;
 	using const_pointer = const T*;
+	using cont_pointer = my_deque<value_type, allocator_type>*;
+public:
+	const_iterator cbegin();
+	const_iterator cend();
+	iterator begin();
+	iterator end();
 public:
 	my_deque ();
 	my_deque (size_type count, const_reference value);
@@ -24,18 +30,22 @@ private:
 	pointer right;
 	size_type left_size;
 	size_type right_size;
-	Alloc allocator;
+	allocator_type allocator;
 
-	class base_iterator { // can add pointer to this
+	class base_iterator {
 			friend my_deque<value_type, Alloc>;
 		public:
 			bool operator== (const base_iterator& other) const;
 			bool operator!= (const base_iterator& other) const;
 		protected:
-			explicit base_iterator (const_pointer _ptr, const my_deque<value_type, Alloc>* const cont); // why explicit ?
+			explicit base_iterator (const_pointer _ptr, const cont_pointer cont);
 		protected:
 			pointer ptr;
-			my_deque<value_type, Alloc>* container;
+			cont_pointer container;
+
+			bool _out_of_range (pointer ptr) const;
+			bool _in_left (pointer ptr) const;
+			bool _in_right (pointer ptr) const;
 	};
 
 	class const_iterator : base_iterator {
@@ -54,7 +64,7 @@ private:
 			const const_iterator& operator-- ();
 			const const_iterator operator-- (value_type);
 		protected:
-			explicit const_iterator(const_pointer _ptr, const my_deque<value_type, Alloc>* const cont);
+			explicit const_iterator(const_pointer _ptr, const cont_pointer cont);
 	};
 
 	class iterator : const_iterator {
@@ -69,7 +79,7 @@ private:
 			reference operator* ();
 			pointer operator-> ();
 		protected:
-			explicit iterator (const_pointer _ptr, const my_deque<value_type, Alloc>* const cont);
+			explicit iterator (const_pointer _ptr, const cont_pointer cont);
 	};
 };
 

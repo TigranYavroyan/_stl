@@ -7,5 +7,6 @@
 #include "insertion.hpp"
 #include "iterators.hpp"
 #include "memory.hpp"
+#include "deque_iterator.hpp"
 
 #endif // DEQUE_HPP_HEADER
