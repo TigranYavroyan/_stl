@@ -1,20 +1,7 @@
 #ifndef ITERATORS_HPP
 #define ITERATORS_HPP
 
-//-------------------------------------- base_iterator ----------------------------------------------------------------------
-
-template <typename T, typename Alloc>
-my_deque<T, Alloc>::base_iterator::base_iterator (const_pointer _ptr, const cont_pointer cont) : ptr(_ptr), container(cont) {}
-
-template <typename T, typename Alloc>
-bool my_deque<T, Alloc>::base_iterator::operator== (const base_iterator& other) const {
-	return (other.ptr == ptr && container == other.container);
-}
-
-template <typename T, typename Alloc>
-bool my_deque<T, Alloc>::base_iterator::operator!= (const base_iterator& other) const {
-	return !(other.ptr == ptr && container == other.container);
-}
+// ------------------------------------------ helpers ----------------------------------------------------------------
 
 template <typename T, typename Alloc>
 bool my_deque<T, Alloc>::base_iterator::_out_of_range (pointer ptr) const {
@@ -32,10 +19,25 @@ bool my_deque<T, Alloc>::base_iterator::_in_right (pointer ptr) const {
 	return (ptr >= container->right && ptr < (container->right + container->right_size));
 }
 
+//-------------------------------------- base_iterator ----------------------------------------------------------------------
+
+template <typename T, typename Alloc>
+my_deque<T, Alloc>::base_iterator::base_iterator (pointer _ptr, cont_pointer cont) : ptr(_ptr), container(cont) {}
+
+template <typename T, typename Alloc>
+bool my_deque<T, Alloc>::base_iterator::operator== (const base_iterator& other) const {
+	return (other.ptr == ptr && container == other.container);
+}
+
+template <typename T, typename Alloc>
+bool my_deque<T, Alloc>::base_iterator::operator!= (const base_iterator& other) const {
+	return !(other.ptr == ptr && container == other.container);
+}
+
 //-------------------------------------- const_iterator ----------------------------------------------------------------------
 
 template <typename T, typename Alloc>
-my_deque<T, Alloc>::const_iterator::const_iterator (const_pointer _ptr, const cont_pointer cont) : base_iterator(_ptr, cont) {}
+my_deque<T, Alloc>::const_iterator::const_iterator (pointer _ptr, cont_pointer cont) : base_iterator(_ptr, cont) {}
 
 template <typename T, typename Alloc>
 my_deque<T, Alloc>::const_iterator::const_iterator (const const_iterator& other) : base_iterator(other.ptr, other.container) {}
@@ -78,8 +80,12 @@ template <typename T, typename Alloc>
 const my_deque<T, Alloc>::const_iterator& my_deque<T, Alloc>::const_iterator::operator++ () {
 	if (this->_in_left(this->ptr))
 		--(this->ptr);
-	else
+	else {
+		if ((this->ptr + 1) == this->container->left) {
+			this->ptr = this->container->right;
+		}
 		++(this->ptr);
+	}
 
 	return *this;
 }
@@ -111,7 +117,7 @@ const my_deque<T, Alloc>::const_iterator my_deque<T, Alloc>::const_iterator::ope
 //-------------------------------------- iterator ----------------------------------------------------------------------
 
 template <typename T, typename Alloc>
-my_deque<T, Alloc>::iterator::iterator (const_pointer _ptr, const cont_pointer cont) : const_iterator(_ptr, cont) {}
+my_deque<T, Alloc>::iterator::iterator (pointer _ptr, cont_pointer cont) : const_iterator(_ptr, cont) {}
 
 template <typename T, typename Alloc>
 my_deque<T, Alloc>::iterator::iterator (const iterator& other) : const_iterator(other.ptr, other.cont) {}

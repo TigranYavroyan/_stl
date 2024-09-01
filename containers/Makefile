@@ -1,6 +1,6 @@
 CC = g++
 INCLPATH = ./headers
-CFLAGS = -std=c++2a $(foreach H, $(INCLPATH), -I$(H))
+CFLAGS = -std=c++2a $(foreach H, $(INCLPATH), -I$(H)) -g
 MAIN = main.cpp
 EXEC = a.out
 

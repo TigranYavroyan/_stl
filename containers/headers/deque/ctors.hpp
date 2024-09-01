@@ -11,7 +11,13 @@ my_deque<T, Alloc>::my_deque (size_type count, const_reference value) {
 	left = allocator.allocate(left_size);
 	right = allocator.allocate(right_size);
 
-	
+	iterator it_begin = begin();
+	iterator it_end = end();
+
+	while (it_begin != it_end) { // doesn't work
+		*it_begin = value;
+		++it_begin;
+	}
 }
 
 #endif // CTORS_HPP

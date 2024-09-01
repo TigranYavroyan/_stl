@@ -13,18 +13,7 @@ public:
 	using const_reference = const T&;
 	using pointer = T*;
 	using const_pointer = const T*;
-	using cont_pointer = my_deque<value_type, allocator_type>*;
-public:
-	const_iterator cbegin();
-	const_iterator cend();
-	iterator begin();
-	iterator end();
-public:
-	my_deque ();
-	my_deque (size_type count, const_reference value);
-	~my_deque () noexcept;
-public:
-	void clear () noexcept;
+	using cont_pointer = const my_deque<value_type, allocator_type>*;
 private:
 	pointer left;
 	pointer right;
@@ -38,7 +27,7 @@ private:
 			bool operator== (const base_iterator& other) const;
 			bool operator!= (const base_iterator& other) const;
 		protected:
-			explicit base_iterator (const_pointer _ptr, const cont_pointer cont);
+			explicit base_iterator (pointer _ptr, cont_pointer cont);
 		protected:
 			pointer ptr;
 			cont_pointer container;
@@ -64,7 +53,7 @@ private:
 			const const_iterator& operator-- ();
 			const const_iterator operator-- (value_type);
 		protected:
-			explicit const_iterator(const_pointer _ptr, const cont_pointer cont);
+			explicit const_iterator(pointer _ptr, cont_pointer cont);
 	};
 
 	class iterator : const_iterator {
@@ -79,8 +68,19 @@ private:
 			reference operator* ();
 			pointer operator-> ();
 		protected:
-			explicit iterator (const_pointer _ptr, const cont_pointer cont);
+			explicit iterator (pointer _ptr, cont_pointer cont);
 	};
+public:
+	const_iterator cbegin() const;
+	const_iterator cend() const;
+	iterator begin() const;
+	iterator end() const;
+public:
+	my_deque ();
+	my_deque (size_type count, const_reference value);
+	~my_deque () noexcept;
+public:
+	void clear () noexcept;
 };
 
 #include "deque_header.hpp"
