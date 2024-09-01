@@ -11,13 +11,7 @@ my_deque<T, Alloc>::my_deque (size_type count, const_reference value) {
 	left = allocator.allocate(left_size);
 	right = allocator.allocate(right_size);
 
-	iterator it_begin = begin();
-	iterator it_end = end();
-
-	while (it_begin != it_end) { // doesn't work
-		*it_begin = value;
-		++it_begin;
-	}
+	std::for_each(begin(), end(), [&value](T& curr){curr = value;});
 }
 
 #endif // CTORS_HPP
