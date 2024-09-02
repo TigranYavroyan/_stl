@@ -20,14 +20,21 @@ std::ostream& operator<< (std::ostream& os, const point& p) {
     return os << p.x << ' ' << p.y;
 }
 
+template <typename T>
+void print (const T& ob) {
+    std::for_each(ob.begin(), ob.end(), [](const int val) {std::cout << val << ' ';});
+    std::cout << '\n';
+}
+
 int main () {
     // vector<point, Stack_alloc<point>> vec = {{0, 0}, {1, 2}, {3, 4}, {5, 6}};
     // print_vec(vec);
     // vec.emplace_back(10, 100);
     // print_vec(vec);
-	my_deque<int> deq(4, 99);
-    std::for_each(deq.begin(), deq.end(), [](const int val) {std::cout << val << ' ';});
-    std::cout << '\n';
+	my_deque<int> deq = {1, 2, 3, 4, 5, 6, 7};
+	my_deque<int> deq2 = deq;
+    print(deq);
+    print(deq2);
     // vector<int, Stack_alloc<int>> vec = {1, 2, 3, 4, 5, 6, 7, 8};
     // print_vec(vec);
     // vec.push_back(1000);

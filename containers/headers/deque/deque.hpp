@@ -20,7 +20,12 @@ private:
 	size_type left_size;
 	size_type right_size;
 	allocator_type allocator;
-
+private:
+	void _init (size_type count);
+	void _balance_left ();
+	void _balance_right ();
+	int _if_balanced () const; // checking is offset 3
+private:
 	class base_iterator {
 			friend my_deque<value_type, Alloc>;
 		public:
@@ -77,10 +82,17 @@ public:
 	iterator end() const;
 public:
 	my_deque ();
-	my_deque (size_type count, const_reference value);
+	my_deque (size_type count, const_reference value = T());
+	my_deque (const std::initializer_list<T>& list);
+	my_deque (const my_deque<T, Alloc>& other);
+	my_deque (my_deque<T, Alloc>&& other);
 	~my_deque () noexcept;
 public:
 	void clear () noexcept;
+	void push_back (const T& val);
+	void push_front (const T& val);
+	void pop_back ();
+	void pop_front ();
 };
 
 #include "deque_header.hpp"
