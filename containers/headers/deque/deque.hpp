@@ -7,8 +7,10 @@ template <typename T, typename Alloc = std::allocator<T>>
 class my_deque {
 public:
 	using value_type = T;
-	using allocator_type = Alloc;
+	using difference_type = std::ptrdiff_t;
 	using size_type = std::size_t;
+	using allocator_type = Alloc;
+	using allocator_traits = std::allocator_traits<Alloc>;
 	using reference = T&;
 	using const_reference = const T&;
 	using pointer = T*;
@@ -24,14 +26,14 @@ private:
 	void _init (size_type count);
 	void _balance_left ();
 	void _balance_right ();
-	int _if_balanced () const; // checking is offset 3
+	int _is_balanced () const; // checking is offset 3
 private:
-	class base_iterator {
+	class base_iterator : public std::iterator<std::random_access_iterator_tag, T> { // for support STL algorithms
 			friend my_deque<value_type, Alloc>;
 		public:
 			bool operator== (const base_iterator& other) const;
 			bool operator!= (const base_iterator& other) const;
-		protected:
+		public:
 			explicit base_iterator (pointer _ptr, cont_pointer cont);
 		protected:
 			pointer ptr;

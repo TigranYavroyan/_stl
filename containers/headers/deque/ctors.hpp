@@ -44,8 +44,10 @@ my_deque<T, Alloc>::my_deque (const my_deque<T, Alloc>& other) :
 	left = allocator.allocate(left_size);
 	right = allocator.allocate(right_size);
 
+	// std::copy(other.cbegin(), other.cend(), std::back_inserter(*this)); // now it is not supported
+
 	const_iterator other_begin = other.cbegin();
-	const_iterator other_end = other.end();
+	const_iterator other_end = other.cend();
 	iterator this_begin = begin();
 	while (other_begin != other_end) {
 		*this_begin = *other_begin;

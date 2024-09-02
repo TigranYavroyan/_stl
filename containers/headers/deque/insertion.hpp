@@ -3,7 +3,10 @@
 
 template <typename T, typename Alloc>
 void my_deque<T, Alloc>::push_back (const T& val) {
-
+    int bf = _is_balanced();
+    if (bf == 0) {
+        
+    }
 }
 
 template <typename T, typename Alloc>

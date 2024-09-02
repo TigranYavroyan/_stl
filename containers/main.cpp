@@ -32,9 +32,9 @@ int main () {
     // vec.emplace_back(10, 100);
     // print_vec(vec);
 	my_deque<int> deq = {1, 2, 3, 4, 5, 6, 7};
-	my_deque<int> deq2 = deq;
+	my_deque<int> deq2;
     print(deq);
-    print(deq2);
+    // print(deq2);
     // vector<int, Stack_alloc<int>> vec = {1, 2, 3, 4, 5, 6, 7, 8};
     // print_vec(vec);
     // vec.push_back(1000);

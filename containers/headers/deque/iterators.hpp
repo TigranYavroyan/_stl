@@ -119,10 +119,13 @@ template <typename T, typename Alloc>
 my_deque<T, Alloc>::iterator::iterator (pointer _ptr, cont_pointer cont) : const_iterator(_ptr, cont) {}
 
 template <typename T, typename Alloc>
-my_deque<T, Alloc>::iterator::iterator (const iterator& other) : const_iterator(other.ptr, other.cont) {}
+my_deque<T, Alloc>::iterator::iterator (const iterator& other) : const_iterator(other.ptr, other.container) {}
 
 template <typename T, typename Alloc>
-my_deque<T, Alloc>::iterator::iterator (iterator&& other) : const_iterator(other.ptr, other.cont) {}
+my_deque<T, Alloc>::iterator::iterator (iterator&& other) : const_iterator(other.ptr, other.container) {
+	other.ptr = nullptr;
+	other.container = nullptr;
+}
 
 template <typename T, typename Alloc>
 const my_deque<T, Alloc>::iterator& my_deque<T, Alloc>::iterator::operator= (const base_iterator& other) { // why base_iterator
