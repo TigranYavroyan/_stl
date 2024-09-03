@@ -4,18 +4,28 @@
 // ------------------------------------------ helpers ----------------------------------------------------------------
 
 template <typename T, typename Alloc>
-bool my_deque<T, Alloc>::base_iterator::_in_left (pointer ptr) const {
-	return (ptr > container->left && ptr < (container->left + container->left_size));
+bool my_deque<T, Alloc>::base_iterator::_in_left (pointer _ptr) const {
+	return (_ptr > container->left && _ptr < (container->left + container->left_size));
 }
 
 template <typename T, typename Alloc>
-bool my_deque<T, Alloc>::base_iterator::_in_right (pointer ptr) const {
-	return (ptr > container->right && ptr < (container->right + container->right_size));
+bool my_deque<T, Alloc>::base_iterator::_in_right (pointer _ptr) const {
+	return (_ptr > container->right && _ptr < (container->right + container->right_size));
 }
 
 template <typename T, typename Alloc>
-bool my_deque<T, Alloc>::base_iterator::_out_of_range (pointer ptr) const {
-	return !this->_in_left(this->ptr) && !this->_in_right(this->ptr);
+bool my_deque<T, Alloc>::base_iterator::_left_border (pointer _ptr) const {
+	return (_ptr == this->container->left || _ptr == this->container->left + this->container->left_size);
+}
+
+template <typename T, typename Alloc>
+bool my_deque<T, Alloc>::base_iterator::_right_border (pointer _ptr) const {
+	return (_ptr == this->container->right || _ptr == this->container->right + this->container->right_size);
+}
+
+template <typename T, typename Alloc>
+bool my_deque<T, Alloc>::base_iterator::_out_of_range (pointer _ptr) const {
+	return !this->_in_left(this->_ptr) && !this->_in_right(this->_ptr);
 }
 
 //-------------------------------------- base_iterator ----------------------------------------------------------------------
@@ -31,6 +41,27 @@ bool my_deque<T, Alloc>::base_iterator::operator== (const base_iterator& other) 
 template <typename T, typename Alloc>
 bool my_deque<T, Alloc>::base_iterator::operator!= (const base_iterator& other) const {
 	return !(other.ptr == ptr && container == other.container);
+}
+
+template <typename T, typename Alloc>
+typename my_deque<T, Alloc>::difference_type my_deque<T, Alloc>::base_iterator::operator- (const base_iterator& other) const {
+	bool in_left_this = _in_left(this->ptr) || _left_border(this->ptr);
+	bool in_left_other = _in_left(other.ptr) || _left_border(other.ptr);
+	bool in_right_this = _in_right(this->ptr) || _right_border(this->ptr);
+	bool in_right_other = _in_right(other.ptr) || _right_border(other.ptr);
+
+	difference_type val;
+	if (in_left_this && in_left_other)
+		val = other.ptr - this->ptr;
+	else if (in_right_this && in_right_other)
+		val = this->ptr - other.ptr;
+	else if (in_left_this && in_right_other)
+		val = this->ptr - this->container->left + other.ptr - other.container->right + 1;
+	else {
+		val = this->ptr - this->container->right + other.ptr - other.container->left + 1;
+		// std::cout << "this is the val: " << val << '\n';
+	}
+	return val;
 }
 
 //-------------------------------------- const_iterator ----------------------------------------------------------------------

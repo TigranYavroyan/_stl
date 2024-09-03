@@ -6,8 +6,8 @@
 #include "access.hpp"
 #include "insertion.hpp"
 #include "deletion.hpp"
-#include "iterators.hpp"
 #include "memory.hpp"
+#include "iterators.hpp"
 #include "deque_iterator.hpp"
 #include "balancing.hpp"
 

@@ -2,13 +2,16 @@
 #define MEMORY_HPP
 
 template <typename T, typename Alloc>
-void my_deque<T, Alloc>::clear () noexcept {
-	allocator.deallocate(right, right_size);
-	allocator.deallocate(left, left_size);
-	left = nullptr;
-	right = nullptr;
-	left_size = 0;
-	right_size = 0;
+void my_deque<T, Alloc>::_alloc (pointer* ptr, size_type size) {
+    if (ptr)
+        *ptr = allocator.allocate(size);
 }
+
+template <typename T, typename Alloc>
+void my_deque<T, Alloc>::_dealloc (pointer* ptr, size_type size) {
+    if (ptr)
+        allocator.deallocate(*ptr, size);
+}
+
 
 #endif // MEMORY_HPP

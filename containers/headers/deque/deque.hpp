@@ -23,25 +23,38 @@ private:
 	size_type right_size;
 	allocator_type allocator;
 private:
-	void _init (size_type count);
+	// balancing
+	int _is_balanced () const; // checking is offset 2
 	void _balance_left ();
 	void _balance_right ();
-	int _is_balanced () const; // checking is offset 3
+	void _balance();
+
+	// helpers
+	void _init (size_type count);
+	void _dealloc (pointer* ptr, size_type size);
+	void _alloc (pointer* ptr, size_type size);
+	void _push(pointer* ptr, size_type& size, const_reference val);
+	void _remove_front (pointer* ptr, size_type& size);
+	void _add_to_front (pointer* ptr, size_type& size, value_type& val);
+	void _remove_back (pointer* ptr, size_type& size);
 private:
 	class base_iterator : public std::iterator<std::random_access_iterator_tag, T> { // for support STL algorithms
 			friend my_deque<value_type, Alloc>;
 		public:
 			bool operator== (const base_iterator& other) const;
 			bool operator!= (const base_iterator& other) const;
+			difference_type operator- (const base_iterator& other) const;
 		public:
 			explicit base_iterator (pointer _ptr, cont_pointer cont);
 		protected:
 			pointer ptr;
 			cont_pointer container;
 
-			bool _out_of_range (pointer ptr) const;
-			bool _in_left (pointer ptr) const;
-			bool _in_right (pointer ptr) const;
+			bool _out_of_range (pointer _ptr) const;
+			bool _in_left (pointer _ptr) const;
+			bool _in_right (pointer _ptr) const;
+			bool _left_border (pointer _ptr) const;
+			bool _right_border (pointer _ptr) const;
 	};
 public:
 	class const_iterator : public base_iterator {
@@ -91,8 +104,8 @@ public:
 	~my_deque () noexcept;
 public:
 	void clear () noexcept;
-	void push_back (const T& val);
-	void push_front (const T& val);
+	void push_back (const_reference val);
+	void push_front (const_reference val);
 	void pop_back ();
 	void pop_front ();
 };
